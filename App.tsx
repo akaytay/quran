@@ -192,6 +192,9 @@ const App: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 flex flex-col min-h-screen">
+          <div style={{ padding: 24, color: "white" }}>
+      ÇALIŞIYOR ✅
+    </div>
       <header className="text-center mb-8">
         <h1 className="text-4xl font-extrabold mb-2 text-amber-400 tracking-tighter uppercase drop-shadow-lg">Quran Live Stream</h1>
         <p className="text-emerald-100/60 font-medium text-sm tracking-widest">Optimized for Internet Fluctuations • Sequential Detection</p>
