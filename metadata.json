@@ -1,0 +1,7 @@
+{
+  "name": "Quran Recitation Recognizer",
+  "description": "A real-time Quran recognition tool that transcribes Arabic recitation and identifies the Surah and Ayah using Gemini's advanced audio capabilities.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
