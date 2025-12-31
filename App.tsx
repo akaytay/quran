@@ -57,7 +57,7 @@ const App: React.FC = () => {
       lastVerseRef.current = null;
       transcriptionBufferRef.current = { user: '', model: '' };
 
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
@@ -192,9 +192,9 @@ const App: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 flex flex-col min-h-screen">
-          <div style={{ padding: 24, color: "white" }}>
-      ÇALIŞIYOR ✅
-    </div>
+        <div style={{ padding: 24, color: "white" }}>
+  ÇALIŞIYOR ✅
+</div>
       <header className="text-center mb-8">
         <h1 className="text-4xl font-extrabold mb-2 text-amber-400 tracking-tighter uppercase drop-shadow-lg">Quran Live Stream</h1>
         <p className="text-emerald-100/60 font-medium text-sm tracking-widest">Optimized for Internet Fluctuations • Sequential Detection</p>
