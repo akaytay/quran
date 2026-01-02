@@ -57,7 +57,7 @@ const App: React.FC = () => {
       lastVerseRef.current = null;
       transcriptionBufferRef.current = { user: '', model: '' };
 
-      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
@@ -159,7 +159,7 @@ const App: React.FC = () => {
           STRICT RULES:
           - NEVER say "Sadakallahulaziym".
           - STAY COMPLETELY SILENT while the user recites.
-          - Output Arabic transcription, English translation, and Spanish translation for every individual verse.`,
+          - Output Arabic transcription, English translation, and Spanish translation for every individual verse detected.`,
           tools: [{
             functionDeclarations: [{
               name: 'identifyQuranVerse',
@@ -191,13 +191,16 @@ const App: React.FC = () => {
   }, [stopSession]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 flex flex-col min-h-screen">
-        <div style={{ padding: 24, color: "white" }}>
-  ÇALIŞIYOR ✅
-</div>
+    <div className="max-w-4xl mx-auto px-4 py-6 md:py-10 flex flex-col min-h-screen">
+      <div className="text-center py-2 mb-4">
+        <span className="text-emerald-100/40 text-[10px] font-black uppercase tracking-[0.4em] animate-pulse">
+          Ali Akaytay'ın sayfasına hoşgeldiniz
+        </span>
+      </div>
+
       <header className="text-center mb-8">
         <h1 className="text-4xl font-extrabold mb-2 text-amber-400 tracking-tighter uppercase drop-shadow-lg">Quran Live Stream</h1>
-        <p className="text-emerald-100/60 font-medium text-sm tracking-widest">Optimized for Internet Fluctuations • Sequential Detection</p>
+        <p className="text-emerald-100/60 font-medium text-sm tracking-widest">High-Speed Sequential Detection</p>
       </header>
 
       <main className="flex-grow flex flex-col gap-6">
@@ -255,7 +258,7 @@ const App: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                     </svg>
                   </div>
-                  <p className="text-base font-light tracking-wide italic leading-relaxed">System is ready. After the first verse, detection will accelerate for sequential recitation.</p>
+                  <p className="text-base font-light tracking-wide italic leading-relaxed">System is ready. Sequential detection is prioritized after the first identification.</p>
                 </div>
               </div>
             ) : (
@@ -316,7 +319,7 @@ const App: React.FC = () => {
                <span className={isVerifyingSequence ? 'text-amber-400 animate-pulse' : ''}>{isVerifyingSequence ? 'Engaged' : 'Searching'}</span>
              </div>
              <div className="w-[1px] h-3 bg-white/10" />
-             <span className="text-amber-400/80">{verseHistory.length} Verses Tracked</span>
+             <span className="text-amber-400/80">{verseHistory.length} Verses</span>
            </div>
         </div>
       </main>
