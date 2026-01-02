@@ -57,7 +57,13 @@ const App: React.FC = () => {
       lastVerseRef.current = null;
       transcriptionBufferRef.current = { user: '', model: '' };
 
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      // Ensure API_KEY is present; guidelines say it's available via process.env.API_KEY
+      const apiKey = process.env.API_KEY;
+      if (!apiKey) {
+        throw new Error('API Key is missing in environment variables.');
+      }
+
+      const ai = new GoogleGenAI({ apiKey });
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
@@ -109,7 +115,7 @@ const App: React.FC = () => {
               transcriptionBufferRef.current.user += message.serverContent.inputTranscription.text;
             }
 
-            if (message.toolCall) {
+            if (message.toolCall?.functionCalls) {
               for (const fc of message.toolCall.functionCalls) {
                 if (fc.name === 'identifyQuranVerse') {
                   const result = fc.args as unknown as VerseIdentification;
